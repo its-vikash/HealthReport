@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Health Report Form</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div class="form-container">
+    <form id="healthReportForm" method="post" enctype="multipart/form-data">
+      <h1>Submit Your Health Report</h1>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="age">Age:</label>
+      <input type="text" id="age" name="age" required>
+
+      <label for="weight">Weight:</label>
+      <input type="text" id="weight" name="weight" required>
+
+      <label for="email">Email ID:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="healthReport">Upload Health Report:</label>
+      <input type="file" id="healthReport" name="healthReport" required accept=".pdf">
+
+      <input type="submit" value="Submit">
+    </form>
+    <hr>
+    <h2>OR</h2>
+    <hr>
+    <a style="font-size: 30px;" href="./get_report.html" target="_blank">Search Health Report</a>
+  </div>
+
+  <script>
+    // JavaScript code to handle form submission
+    document.getElementById("healthReportForm").addEventListener("submit", function(e) {
+      e.preventDefault(); // Prevent form submission
+
+      // Get form datayy
+      var formData = new FormData(this);
+
+      // Send form data to a PHP file for processing
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "insert_health_report.php", true);
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          alert("Form submitted successfully!");
+          // Clear form fields
+          document.getElementById("healthReportForm").reset();
+        } else {
+          alert("An error occurred while submitting the form. Please try again.");
+        }
+      };
+      xhr.send(formData);
+    });
+  </script>
+<!-- <a href="fetch_health_report.php?email=test@gmail.com">View</a> -->
+</body>
+</html>
